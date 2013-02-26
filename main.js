@@ -42,6 +42,8 @@ function log(msg) {
 	actionStart = now;
 }
 
+var loadAsyncButton = document.getElementById('load-async');
+
 document.getElementById('load-worker').onclick = function () {
 	logStart();
 
@@ -54,7 +56,7 @@ document.getElementById('load-worker').onclick = function () {
 	worker.postMessage(true);
 };
 
-document.getElementById('load-async').onclick = function () {
+loadAsyncButton.onclick = function () {
 	logStart();
 
 	var script = document.createElement('script');
@@ -76,4 +78,5 @@ document.getElementById('load-async-worker').onclick = function () {
 
 function onDataLoad() {
 	log('Data loaded asynchronously');
+	loadAsyncButton.disabled = false;
 }
