@@ -4,6 +4,12 @@
 	<meta charset="UTF-8">
 	<title>Web Workers Test</title>
 	<style>
+		p, button {
+			font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+		h2 {
+			font: bold 24px/1 "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
 		#test-container {
 			position: relative;
 			height: 40px;
@@ -21,11 +27,12 @@
 </head>
 <body>
 	<div id="desc">
+		<h2>Loading large amounts of data in a worker</h2>
 		<p>Loading a large amount of JSON data for visualizations on a page freezes the browser, because the data is evaluated in the main thread shared with the browser UI. Many apps use Web Workers to do CPU-intensive calculations on data in a separate thread, but they still typically load the data in the main thread (making the page freeze) and then send it to a worker for calculations (freezing the page on each send too).</p>
 
-		<p>This test shows that you can eliminate the freezes completely by loading the data in the worker directly. After that we can query the data from the main thread without interrupting it. It's great when combined with indexing the data into an R-tree or quadtree, clustering or simplification.</p>
+		<p>This test shows that you can eliminate the freezes completely by loading the data in the worker directly. After that we can query the data from the main thread without interrupting it. You can make pretty fast visualizations by combining this approach with algorithms like indexing the data into R-tree/quadtree, clustering or simplification.</p>
 
-		<p>Tested in Chrome/Firefox under OS X and iPad 2.</p>
+		<p>Tested in Chrome/Firefox/Safari on OS X and Safari on iPad 2.</p>
 
 		<p>Note that Firefox <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=686274">throws an error</a> if you try to initialize an array literal with more than ~490,000 points, so the test array (containing 1,600,000 elements) is broken into several concatenated chunks.</p>
 
