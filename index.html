@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Workers Test</title>
+	<style>
+		#test-container {
+			position: relative;
+			height: 40px;
+		}
+		#test {
+			width: 40px;
+			height: 40px;
+			background: red;
+			position: absolute;
+		}
+		#desc {
+			width: 640px;
+		}
+	</style>
+</head>
+<body>
+	<div id="desc">
+		<p>Loading a large amount of JSON data for visualizations on a page freezes the browser, because the data is evaluated in the main thread shared with the browser UI. Many apps use Web Workers to do CPU-intensive calculations on data in a separate thread, but they still typically load the data in the main thread and then send it to a worker for calculations.</p>
+
+		<p>This test shows that you can eliminate the initial page freeze completely by loading the data in the worker directly. After that we can query the data from the main thread without interrupting it. It's great when combined with indexing the data into an R-tree or quadtree, clustering or simplification.</p>
+
+		<p>Surprisingly, evaluating the data in the worker in Chrome is 2 times faster than doing it in the main thread and sending to a worker (I guess because of its DOM-less nature). iPad 2 shows a ~30% improvement. Firefox times are even though.</p>
+
+		<p>Note that Firefox <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=686274">throws an error</a> if you try to initialize an array literal with more than ~490,000 points, so the test array (containing 1,600,000 elements) is broken into several concatenated chunks.</p>
+
+		<p>Load the data either way to get it cached (may take a while), after that the times will not include the actual network transfer of the file (for a fair comparison).</p>
+	</div>
+	<div id="test-container">
+		<div id="test"></div>
+	</div>
+	<p>
+		<button id="load-async">Load 9MB array asynchronously</button>
+		<button id="load-async-worker">Send to a worker</button><br />
+		<button id="load-worker">Load 9MB array in a worker</button>
+	</p>
+	<p id="log"></p>
+	<p>Made by <a href="http://agafonkin.com/en">Vladimir Agafonkin</a>, creator of <a href="http://leafletjs.com">Leaflet</a>.</p>
+
+	<script src="main.js"></script>
+</body>
+</html>
