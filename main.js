@@ -1,10 +1,9 @@
-
 function animateSquare() {
 	var test = document.getElementById('test'),
 		start = Date.now();
 
 	window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                                   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+                                   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.setTimeout;
 
 	function step() {
 		var now = Date.now(),
