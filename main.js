@@ -58,7 +58,7 @@ document.getElementById('load-async').onclick = function () {
 	logStart();
 
 	var script = document.createElement('script');
-	script.src = 'http://agafonkin.com/workers-test/test.js';
+	script.src = 'test.js';
 	document.body.appendChild(script);
 };
 
